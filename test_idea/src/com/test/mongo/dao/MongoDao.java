@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,7 +21,26 @@ public interface MongoDao {
      * @return
      * @throws Exception
      */
-    public Map<String,Integer> queryByID(MongoDatabase db, String table, Object Id) throws Exception;
+    public Map<String,Object> queryByID(MongoDatabase db, String table, Object Id) throws Exception;
+
+    /**
+     *
+     * @param db
+     * @param table
+     * @param doc
+     * @return
+     * @throws Exception
+     */
+    public List<Map<String,Object>> queryByDoc(MongoDatabase db, String table, BasicDBObject doc) throws Exception;
+
+    /**
+     *
+     * @param db
+     * @param table
+     * @return
+     * @throws Exception
+     */
+    public List<Map<String,Object>> queryAll(MongoDatabase db, String table) throws Exception;
 
     /**
      * Insert Data
@@ -31,6 +51,15 @@ public interface MongoDao {
      */
     public boolean insert(MongoDatabase db, String table, Document document)throws Exception;
 
+    /**
+     *
+     * @param db
+     * @param table
+     * @param documents
+     * @return
+     * @throws Exception
+     */
+    public boolean insertMany(MongoDatabase db, String table, List<Document> documents )throws Exception;
     /**
      * Delete Many Data.if doc is empty will delete all Data
      * @param db

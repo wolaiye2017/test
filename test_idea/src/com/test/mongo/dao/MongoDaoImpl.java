@@ -16,13 +16,13 @@ import java.util.Map;
 
 public class MongoDaoImpl implements MongoDao {
     @Override
-    public Map<String, Integer> queryByID(MongoDatabase db, String table, Object Id) throws Exception {
+    public Map<String, Object> queryByID(MongoDatabase db, String table, Object Id) throws Exception {
         MongoCollection<Document> collection = db.getCollection(table);
         BasicDBObject query = new BasicDBObject("_id", Id);
 
         //  DBObject接口和BasicDBObject对象：表示一个具体的记录，BasicDBObject实现了DBObject，是key-value的数据结构，用起来和HashMap是基本一致的。
         FindIterable<Document> iterable = collection.find(query);
-        Map<String,Integer> jsonStrToMap = null;
+        Map<String,Object> jsonStrToMap = null;
         MongoCursor<Document> cursor = iterable.iterator();
         while (cursor.hasNext()) {
             Document user = cursor.next();
@@ -31,7 +31,8 @@ public class MongoDaoImpl implements MongoDao {
         }
         return jsonStrToMap;
     }
-    public List<Map<String,Integer>> queryByDoc(MongoDatabase db, String table, BasicDBObject doc) {
+    @Override
+    public List<Map<String,Object>> queryByDoc(MongoDatabase db, String table, BasicDBObject doc) throws Exception{
         MongoCollection<Document> collection = db.getCollection(table);
         FindIterable<Document> iterable = collection.find(doc);
         /**
@@ -40,27 +41,27 @@ public class MongoDaoImpl implements MongoDao {
          * 3. 通过游标遍历检索出的文档集合
          * */
 
-        List<Map<String,Integer>> list = new ArrayList<Map<String,Integer>>();
+        List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
         MongoCursor<Document> cursor = iterable.iterator();
         while (cursor.hasNext()) {
             Document user = cursor.next();
             String jsonString = user.toJson();
-            Map<String, Integer> jsonStrToMap = JsonStrToMap.jsonStrToMap(jsonString);
+            Map<String, Object> jsonStrToMap = JsonStrToMap.jsonStrToMap(jsonString);
             list.add(jsonStrToMap);
         }
         return list;
     }
-
-    public List<Map<String,Integer>> queryAll(MongoDatabase db, String table) {
+    @Override
+    public List<Map<String,Object>> queryAll(MongoDatabase db, String table) throws Exception{
         MongoCollection<Document> collection = db.getCollection(table);
         FindIterable<Document> iterable = collection.find();
 
-        List<Map<String,Integer>> list = new ArrayList<Map<String,Integer>>();
+        List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
         MongoCursor<Document> cursor = iterable.iterator();
         while (cursor.hasNext()) {
             Document user = cursor.next();
             String jsonString = user.toJson();
-            Map<String, Integer> jsonStrToMap = JsonStrToMap.jsonStrToMap(jsonString);
+            Map<String, Object> jsonStrToMap = JsonStrToMap.jsonStrToMap(jsonString);
             list.add(jsonStrToMap);
         }
         return list;
@@ -77,7 +78,8 @@ public class MongoDaoImpl implements MongoDao {
         }
     }
 
-    public boolean insertMany(MongoDatabase db, String table, List<Document> documents ) {
+    @Override
+    public boolean insertMany(MongoDatabase db, String table, List<Document> documents )throws Exception {
         MongoCollection<Document> collection = db.getCollection(table);
         long preCount = collection.count();
         collection.insertMany(documents);
@@ -91,7 +93,7 @@ public class MongoDaoImpl implements MongoDao {
 
 
 
-        @Override
+    @Override
     public boolean delete(MongoDatabase db, String table, BasicDBObject document) throws Exception {
             MongoCollection<Document> collection = db.getCollection(table);
             DeleteResult deleteManyResult = collection.deleteMany(document);
