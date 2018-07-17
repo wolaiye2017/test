@@ -6,7 +6,7 @@ import com.mongodb.client.MongoDatabase;
 public class MongoHelper {
 
     private static final String     DB_NAME          = "test";
-    private static final String     SERVER_ADDRESS   = "192.168.0.188";
+    private static final String     SERVER_ADDRESS   = "192.168.0.111";
     private static final int        PORT            = 27017;
 
     public MongoHelper(){}

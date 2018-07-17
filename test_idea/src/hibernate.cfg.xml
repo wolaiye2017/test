@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <!-- 会话连接工厂，建立数据库连接需要SessionFactory -->
+    <session-factory>
+        <!-- JDBC连接基本参数 -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://db4free.net:3306/lj_test?characterEncoding=UTF-8</property>
+        <property name="hibernate.connection.username">lj_test</property>
+        <property name="hibernate.connection.password">li1231545</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</property>
+        <!--<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>-->
+        <!--<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>-->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hbm2ddl.auto">update</property>
+        <!--当然也可以不使用上面这种指定的方式，而使用包扫描的方式做为替换，推荐这种-->
+        <mapping class="com.test.hibernate.model.CourseAnno"/>
+        <mapping class="com.test.hibernate.model.Person"/>
+        <mapping class="com.test.hibernate.model.Idcard"/>
+        <mapping class="com.test.hibernate.model.Department"/>
+        <mapping class="com.test.hibernate.model.User"/>
+        <mapping class="com.test.hibernate.model.UserMany"/>
+        <mapping class="com.test.hibernate.model.Role"/>
+    </session-factory>
+</hibernate-configuration>
