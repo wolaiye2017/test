@@ -13,3 +13,5 @@
 	> 新增mongoDB
 	
 	> 新增小说分章
+	
+	> 新增habernate
