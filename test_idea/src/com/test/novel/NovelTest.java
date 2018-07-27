@@ -7,7 +7,7 @@ public class NovelTest {
 
     public static void main(String[] args) {
 
-        NovelChapterUtil2.cut("D:\\Downloads\\Novel\\2017年11月5日\\人道天庭.txt", "D:/test");
+        NovelChapterUtil2.cut("D:\\Downloads\\Novel\\***.txt", "D:/test");
     }
 
 }
